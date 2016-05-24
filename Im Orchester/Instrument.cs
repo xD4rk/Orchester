@@ -9,6 +9,9 @@ namespace Im_Orchester
 {
     public abstract class Instrument
     {
+        public void Spielen_Eventhandler(object sender, EventArgs e){
+
+        }
 
         public string Name { get; set; }
         public ListBox Listbox_ausgabe { get; set; }
@@ -20,7 +23,7 @@ namespace Im_Orchester
     }
     public class Violine : Instrument
     {
-        public void void spielen(object sender, EventArgs e){
+        public void  spielen(object sender, EventArgs e){
 
         }
         public string note_spielen(Note n)

@@ -30,10 +30,18 @@ namespace Im_Orchester
             Timer.Tick += Timer_Tick;
             Timer.Start();
             Timer.Interval = new TimeSpan(30000000);
+            d.Listbox_ausgabe = lbAusgabe;
+
         }
         public void Timer_Tick(object sender, EventArgs e)
         {
-            d.Partitur = input;
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            d.Partitur_einfügen(input);
+            d.Spielen(this, new EventArgs());
         }
     }
 }

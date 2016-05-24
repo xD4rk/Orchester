@@ -12,10 +12,20 @@ namespace Im_Orchester
         public byte Dauer { get; set; }
         public bool Spielen { get; set; }
 
-
-        public Note get_note(string s)
+        public Note(string h, byte d, bool s)
         {
-            return new Note();
+            Dauer = d;
+            Spielen = s;
+            Hoehe = h;
+        }
+
+        public override string ToString()
+        {
+            return Hoehe;
+        }
+        public void get_note(string s)
+        {
+            //return new Note();
         }
     }
 }
