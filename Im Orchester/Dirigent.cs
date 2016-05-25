@@ -7,25 +7,40 @@ using System.Windows.Controls;
 
 namespace Im_Orchester
 {
-    class Dirigent
+    public class OrchesterEventArgs : EventArgs
     {
-        List<Note> Notenliste;
+        public ListBox lbox;
+        public OrchesterEventArgs(ListBox l)
+        {
+            lbox = l;
+        }
+        public OrchesterEventArgs()
+        {
+        }
+
+    }
+    public class Dirigent
+    {
+        public List<Note> Notenliste;
         public int position;
-        public char actualChar;
+        public int actualChar=0;
         public string input = "";
         public event EventHandler DirigentSpielen;
         public ListBox Listbox_ausgabe { get; set; }
         public string Partitur { get; set; }
 
+        
         public void Partitur_einfügen(string part)
         {
             input = part;
         }
-        public void Spielen(object sender, EventArgs e)
+        public void Spielen(object sender, OrchesterEventArgs o)
         {
+            DirigentSpielen(this,o);
             nextChar();
         }
         public void nextChar()
+            
         {
             Notenliste = new List<Note>();
             foreach (var item in input.Split('|'))

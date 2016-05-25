@@ -26,6 +26,10 @@ namespace Im_Orchester
         public string input = "d 1 | d 1 fis-a 1| fis-a 1 P 1 d-fis 1 | d-fis 1 P 1";
         public MainWindow()
         {
+            
+            //d.Listbox_ausgabe = lbAusgabe;
+            Violine vio = new Violine(d);
+            Cello cello = new Cello();
             InitializeComponent();
             Timer.Tick += Timer_Tick;
             Timer.Start();
@@ -35,13 +39,14 @@ namespace Im_Orchester
         }
         public void Timer_Tick(object sender, EventArgs e)
         {
-
+            d.Spielen(this, new OrchesterEventArgs(lbAusgabe));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             d.Partitur_einfügen(input);
-            d.Spielen(this, new EventArgs());
+            //d.Spielen(this,new OrchesterEventArgs(lbAusgabe));
+            //d.Spielen(this, new EventArgs());
         }
     }
 }

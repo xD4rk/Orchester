@@ -9,8 +9,9 @@ namespace Im_Orchester
 {
     public abstract class Instrument
     {
-        public void Spielen_Eventhandler(object sender, EventArgs e){
-
+        public void Spielen_Eventhandler(object sender, EventArgs o)
+        {
+          // ((OrchesterEventArgs)o).lbox.Items.Add();
         }
 
         public string Name { get; set; }
@@ -23,13 +24,20 @@ namespace Im_Orchester
     }
     public class Violine : Instrument
     {
-        public void  spielen(object sender, EventArgs e){
-
-        }
-        public string note_spielen(Note n)
+        private Dirigent dg;
+        public Violine(Dirigent d)
         {
-            //To do
-            return "";
+            dg = d;
+            d.DirigentSpielen += spielen;
+        }
+        public void  spielen(object sender, EventArgs o)
+        {
+
+            note_spielen(dg.Notenliste[dg.actualChar]);
+        }
+        public void note_spielen(Note n)
+        {
+            
         }
     }
     public class Cello : Instrument
