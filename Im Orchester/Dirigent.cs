@@ -33,28 +33,62 @@ namespace Im_Orchester
         public void Partitur_einfügen(string part)
         {
             input = part;
+            fillList();
         }
         public void Spielen(object sender, OrchesterEventArgs o)
         {
-            DirigentSpielen(this,o);
-            nextChar();
+            if (Notenliste.Count > actualChar)
+            {
+                DirigentSpielen(this, o);
+                actualChar++;
+            }
         }
-        public void nextChar()
+
+        public void goToNext()
+        {
+            
+        }
+        public void fillList()
             
         {
+            var txt = "";
             Notenliste = new List<Note>();
+            var typeafter = 0;
             foreach (var item in input.Split('|'))
             {
                 foreach (var buchstabe in item)
-                {
+               {
                     
                     if(buchstabe.ToString() != " "){
+
+                        if (buchstabe.ToString() == "-")
+                        {
+                            if (Notenliste.Count > 0 && Notenliste[Notenliste.Count - 1].Hoehe != "fis")
+                            {
+                                Notenliste.Add(new Note(Notenliste[Notenliste.Count - 1].Hoehe + "-fis", (byte) 1, true));
+                                Notenliste.RemoveAt(Notenliste.Count - 2);
+                            }
+                            else
+                            {
+                               
+
+                            }
+                        }
                         if(buchstabe.ToString() == "f"){
                             Notenliste.Add(new Note("fis",(byte) 1,true));
                         }
                         else if (buchstabe.ToString() == "d")
                         {
-                            Notenliste.Add(new Note("d", (byte)1, true));
+                            
+                            if (Notenliste.Count > 0 && Notenliste[Notenliste.Count - 1].Hoehe == "fis")
+                            {
+                                Notenliste.RemoveAt(Notenliste.Count - 1);
+                                Notenliste.Add(new Note("fis-d", (byte) 1, true));
+                            }
+                            else
+                            {
+                                Notenliste.Add(new Note("d", (byte)1, true));
+                            }
                         }
                         else if (buchstabe.ToString() == "P")
                         {
@@ -62,17 +96,22 @@ namespace Im_Orchester
                         }
                         else if (buchstabe.ToString() == "a")
                         {
-                            Notenliste.Add(new Note("a", (byte)0, false));
+                            if(Notenliste.Count > 0 && Notenliste[Notenliste.Count - 1].Hoehe == "fis")
+                            {
+                                Notenliste.RemoveAt(Notenliste.Count - 1);
+                                Notenliste.Add(new Note("fis-a", (byte)1, true));
+                            }
+                            else
+                            {
+                                Notenliste.Add(new Note("a", (byte)1, true));
+                            }
                         }
                     }
                   }
                 Notenliste.Add(new Note("takt",(byte)0,false));
             }
 
-            foreach (var item in Notenliste)
-            {
-                Listbox_ausgabe.Items.Add(item);
-            }
+            
         }
 
         //To do: event an die Instrumente mit einer gespielten Note, Timer...

@@ -32,11 +32,12 @@ namespace Im_Orchester
         }
         public void  spielen(object sender, EventArgs o)
         {
-
             note_spielen(dg.Notenliste[dg.actualChar]);
+            System.Threading.Thread.Sleep(dg.Notenliste[dg.actualChar].Dauer * 2000);
         }
         public void note_spielen(Note n)
         {
+            dg.Listbox_ausgabe.Items.Add(n.Hoehe);
             
         }
     }
